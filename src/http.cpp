@@ -85,9 +85,7 @@ Response Http::performRequest(detail::Request && request) const {
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &str);
 
     // Timeout in seconds for communication with docker.
-    // 10 seconds is limit for user code & tests execution,
-    // 2 seconds are for HTTP overhead:
-    curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10 + 2);
+    curl_easy_setopt(curl, CURLOPT_TIMEOUT, 60 * 2);
 
     auto res = curl_easy_perform(curl);
     if (res != CURLE_OK) {
